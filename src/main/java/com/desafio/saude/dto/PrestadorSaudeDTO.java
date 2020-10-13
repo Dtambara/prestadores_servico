@@ -13,5 +13,5 @@ public class PrestadorSaudeDTO {
 	private String endereco;
 	private double latitude;
 	private double longitude;
-	private String distanciaEmKm;
+	private double distanciaEmKm;
 }

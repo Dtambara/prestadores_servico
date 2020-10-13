@@ -1,5 +1,8 @@
 package com.desafio.saude.integration;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+
 
 @Service
 public class DistanceMatrixApiClient {
@@ -22,7 +27,7 @@ public class DistanceMatrixApiClient {
 	@Value("${distance.matrix.output.format}")
 	private String outputFormat;
 
-	public String getDistance(double originLatitude, double originLongitude, double destinationLatitude, double destinationLongitude) {
+	public double getDistance(double originLatitude, double originLongitude, double destinationLatitude, double destinationLongitude) {
 
 		String origin = getParametroLatitudeLongitude(originLatitude, originLongitude);
 		String destination = getParametroLatitudeLongitude(destinationLatitude, destinationLongitude);
@@ -40,7 +45,7 @@ public class DistanceMatrixApiClient {
 		
 		logger.info("Finalizando request para obtencao de distancia");
 		
-		return distance;
+		return getDistancia(distance);
 	}
 
 	private String getDistanceFromBody(JSONObject json) {
@@ -53,5 +58,14 @@ public class DistanceMatrixApiClient {
 
 	private String getParametroLatitudeLongitude(double originLatitude, double originLongitude) {
 		return String.format("%s,%s", String.valueOf(originLatitude), String.valueOf(originLongitude));
+	}
+	
+	private double getDistancia(String distanceString) {
+		double distancia = 0.0; 
+		
+		
+		distancia = Double.parseDouble(distanceString.split(" ")[0]);
+		
+		return distancia;
 	}
 }

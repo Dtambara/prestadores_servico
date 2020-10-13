@@ -9,5 +9,5 @@ import com.desafio.saude.domain.PrestadorSaude;
 public interface PrestadorSaudeRepository extends JpaRepository<PrestadorSaude, Long> {
 
 	PrestadorSaude findByNome(String nome);
-	Collection<PrestadorSaude> findAllByEspecialidades_nome(String nomeEspecialidade);
+	Collection<PrestadorSaude> findAllDistinctByEspecialidades_nome(String nomeEspecialidade);
 }
